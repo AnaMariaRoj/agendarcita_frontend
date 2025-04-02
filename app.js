@@ -44,7 +44,7 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
     };
 
     // Enviar los datos usando Fetch API
-    fetch('https://hl7-fhir-ehr-anam-0132-b.onrender.com/appointment', {
+    fetch('https://agendarcita-backend.onrender.com/appointment', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
