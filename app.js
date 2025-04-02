@@ -44,7 +44,7 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
     };
 
     // Enviar los datos usando Fetch API
-    fetch('https://agendarcita-backend.onrender.com/appointment', {
+    fetch('https://agendarcita-backend.onrender.com/appointments', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
