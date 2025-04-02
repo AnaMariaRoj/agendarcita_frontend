@@ -49,7 +49,7 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(appointments)
+        body: JSON.stringify(appointment)
     })
     .then(response => response.json())
     .then(data => {
