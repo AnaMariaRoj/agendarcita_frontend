@@ -53,7 +53,7 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
+        console.log('Success', data);
         alert('Cita médica registrada exitosamente!');
     })
     .catch((error) => {
