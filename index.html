@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Cita Médica</title>
+</head>
+<body>
+    <h1>Registro de Cita Médica</h1>
+    <form id="appointmentForm">
+        <label for="name">Nombre del Paciente:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="identifierValue">Número de Documento:</label>
+        <input type="text" id="identifierValue" name="identifierValue" required><br><br>
+
+        <label for="specialty">Especialidad del Médico:</label>
+        <select id="specialty" name="specialty" required>
+            <option value="Cardiología">Cardiología</option>
+            <option value="Dermatología">Dermatología</option>
+            <option value="Pediatría">Pediatría</option>
+            <option value="Medicina General">Medicina General</option>
+        </select><br><br>
+
+        <label for="day">Día de la Cita:</label>
+        <select id="day" name="day" required>
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miércoles">Miércoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+        </select><br><br>
+
+        <label for="startTime">Hora de Inicio:</label>
+        <input type="time" id="startTime" name="startTime" required><br><br>
+
+        <button type="submit">Agendar Cita</button>
+    </form>
+
+    <script src="app.js"></script>
+</body>
+</html>
