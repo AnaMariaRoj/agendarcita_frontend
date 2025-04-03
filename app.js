@@ -11,10 +11,12 @@ document.getElementById("appointmentForm").addEventListener("submit", async func
 
     const appointment = {
         resourceType: "Appointment",
-        identifier: {
-            system: "https://hospital.com/appointments",
-            value: crypto.randomUUID()
-        },
+        identifier: [  // <-- Ahora es una lista
+            {
+                system: "https://hospital.com/appointments",
+                value: crypto.randomUUID()
+            }
+        ],
         status: "booked",
         participant: [
             {
@@ -49,6 +51,7 @@ document.getElementById("appointmentForm").addEventListener("submit", async func
         alert("Error al agendar la cita: " + error.message);
     }
 });
+
 
 
 
