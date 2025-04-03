@@ -16,20 +16,14 @@
 
         <label for="specialty">Especialidad del Médico:</label>
         <select id="specialty" name="specialty" required>
-            <option value="Cardiología">Cardiología</option>
-            <option value="Dermatología">Dermatología</option>
-            <option value="Pediatría">Pediatría</option>
-            <option value="Medicina General">Medicina General</option>
+            <option value="394579002">Cardiología</option> <!-- Código SNOMED para Cardiología -->
+            <option value="394582007">Dermatología</option> <!-- Código SNOMED para Dermatología -->
+            <option value="394583002">Pediatría</option> <!-- Código SNOMED para Pediatría -->
+            <option value="394802001">Medicina General</option> <!-- Código SNOMED para Medicina General -->
         </select><br><br>
 
         <label for="day">Día de la Cita:</label>
-        <select id="day" name="day" required>
-            <option value="Lunes">Lunes</option>
-            <option value="Martes">Martes</option>
-            <option value="Miércoles">Miércoles</option>
-            <option value="Jueves">Jueves</option>
-            <option value="Viernes">Viernes</option>
-        </select><br><br>
+        <input type="date" id="day" name="day" required><br><br>
 
         <label for="startTime">Hora de Inicio:</label>
         <input type="time" id="startTime" name="startTime" required><br><br>
@@ -40,3 +34,4 @@
     <script src="app.js"></script>
 </body>
 </html>
+
