@@ -4,34 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Cita Médica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:disabled {
+            background-color: #ccc;
+        }
+        #message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+    </style>
 </head>
 <body>
+
     <h1>Registro de Cita Médica</h1>
+
     <form id="appointmentForm">
-        <label for="name">Nombre del Paciente:</label>
-        <input type="text" id="name" name="name" required><br><br>
+        <fieldset>
+            <legend>Información del Paciente</legend>
+            <label for="name">Nombre del Paciente:</label>
+            <input type="text" id="name" name="name" required>
 
-        <label for="identifierValue">Número de Documento:</label>
-        <input type="text" id="identifierValue" name="identifierValue" required><br><br>
+            <label for="identifierValue">Número de Documento:</label>
+            <input type="text" id="identifierValue" name="identifierValue" required>
+        </fieldset>
 
-        <label for="specialty">Especialidad del Médico:</label>
-        <select id="specialty" name="specialty" required>
-            <option value="394579002">Cardiología</option> <!-- Código SNOMED para Cardiología -->
-            <option value="394582007">Dermatología</option> <!-- Código SNOMED para Dermatología -->
-            <option value="394583002">Pediatría</option> <!-- Código SNOMED para Pediatría -->
-            <option value="394802001">Medicina General</option> <!-- Código SNOMED para Medicina General -->
-        </select><br><br>
+        <fieldset>
+            <legend>Detalles de la Cita</legend>
+            <label for="specialty">Especialidad del Médico:</label>
+            <select id="specialty" name="specialty" required>
+                <option value="394579002">Cardiología</option>
+                <option value="394582007">Dermatología</option>
+                <option value="394583002">Pediatría</option>
+                <option value="394802001">Medicina General</option>
+            </select>
 
-        <label for="day">Día de la Cita:</label>
-        <input type="date" id="day" name="day" required><br><br>
+            <label for="day">Día de la Cita:</label>
+            <input type="date" id="day" name="day" required>
 
-        <label for="startTime">Hora de Inicio:</label>
-        <input type="time" id="startTime" name="startTime" required><br><br>
+            <label for="startTime">Hora de Inicio:</label>
+            <input type="time" id="startTime" name="startTime" required>
+        </fieldset>
 
-        <button type="submit">Agendar Cita</button>
+        <button type="submit" id="submitBtn">Agendar Cita</button>
     </form>
+
+    <div id="message"></div>
 
     <script src="app.js"></script>
 </body>
 </html>
+
 
