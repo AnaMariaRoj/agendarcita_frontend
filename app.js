@@ -1,29 +1,25 @@
 document.getElementById('appointmentForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Obtener los valores del formulario
     const name = document.getElementById('name').value;
     const identifierValue = document.getElementById('identifierValue').value;
     const specialtyCode = document.getElementById('specialty').value;
     const specialtyText = document.getElementById('specialty').options[document.getElementById('specialty').selectedIndex].text;
     const day = document.getElementById('day').value;
     const startTime = document.getElementById('startTime').value;
+    const doctorId = document.getElementById('doctorId').value; // Asegúrate de tener un campo para seleccionar el médico
 
-    // Convertir la hora de inicio y calcular la hora de finalización
     let [hours, minutes] = startTime.split(':').map(Number);
     let endMinutes = minutes + 40;
     let endHours = hours;
-
     if (endMinutes >= 60) {
         endMinutes -= 60;
         endHours += 1;
     }
 
-    // Formatear fecha y hora en formato ISO 8601
     const startDateTime = `${day}T${startTime}:00Z`;
     const endDateTime = `${day}T${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}:00Z`;
 
-    // Crear el objeto Appointment en formato FHIR
     const appointment = {
         resourceType: "Appointment",
         identifier: [
@@ -38,6 +34,13 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
                 actor: {
                     reference: `Patient/${identifierValue}`,
                     display: name
+                },
+                status: "accepted"
+            },
+            {
+                actor: {
+                    reference: `Practitioner/${doctorId}`, // Se agrega el médico
+                    display: "Dr. Nombre Médico"
                 },
                 status: "accepted"
             }
@@ -79,10 +82,8 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
         end: endDateTime
     };
 
-    // Mostrar en consola para verificar antes de enviar
     console.log("Cita a enviar:", JSON.stringify(appointment, null, 2));
 
-    // Enviar los datos usando Fetch API
     fetch('https://agendarcita-backend.onrender.com/appointment', {
         method: 'POST',
         headers: {
@@ -92,7 +93,26 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
+        console.log('Appointment creado:', data);
+        return fetch('https://agendarcita-backend.onrender.com/slot', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                resourceType: "Slot",
+                schedule: {
+                    reference: `Schedule/${doctorId}`
+                },
+                status: "busy",
+                start: startDateTime,
+                end: endDateTime
+            })
+        });
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Slot creado:', data);
         alert('Cita médica registrada exitosamente!');
     })
     .catch((error) => {
@@ -100,5 +120,6 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
         alert('Hubo un error al registrar la cita.');
     });
 });
+
 
 
