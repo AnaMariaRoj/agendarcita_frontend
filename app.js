@@ -18,12 +18,20 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
         endHours += 1;
     }
 
-    // Formatear la hora de finalización
-    const endTime = `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
+    // Formatear la hora de finalización en formato ISO 8601
+    const startDateTime = `${day}T${startTime}:00Z`;  // UTC
+    const endDateTime = `${day}T${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}:00Z`;
 
     // Crear el objeto Appointment en formato FHIR
     const appointment = {
         resourceType: "Appointment",
+        id: crypto.randomUUID(), // Generar un identificador único
+        identifier: [
+            {
+                system: "https://hospital.com/appointments",
+                value: crypto.randomUUID() // Otro ID único para la cita
+            }
+        ],
         status: "booked",
         participant: [
             {
@@ -36,11 +44,39 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
         ],
         specialty: [
             {
-                text: specialty
+                coding: [
+                    {
+                        system: "http://snomed.info/sct",
+                        code: "394579002",  // Código para "Cardiología" (ejemplo)
+                        display: specialty
+                    }
+                ]
             }
         ],
-        start: `${day} ${startTime}`,
-        end: `${day} ${endTime}`
+        serviceType: [
+            {
+                coding: [
+                    {
+                        system: "http://terminology.hl7.org/CodeSystem/service-type",
+                        code: "57", // "General Practice"
+                        display: "Consulta médica general"
+                    }
+                ]
+            }
+        ],
+        reasonCode: [
+            {
+                coding: [
+                    {
+                        system: "http://snomed.info/sct",
+                        code: "162673000", // "General examination"
+                        display: "Consulta médica"
+                    }
+                ]
+            }
+        ],
+        start: startDateTime,
+        end: endDateTime
     };
 
     // Enviar los datos usando Fetch API
@@ -61,3 +97,4 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
         alert('Hubo un error al registrar la cita.');
     });
 });
+
